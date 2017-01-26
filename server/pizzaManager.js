@@ -115,7 +115,7 @@ var deletePizzaName = function deletePizzaName(name)
 					position = i;
                 }
         }
-	
+	 menu[i][3] = menu[i][3] + increment;
     //if is not found return null
 	if (position == null)
     	return null;
@@ -139,6 +139,26 @@ var insertPizza = function insertPizza(pizza)
 
 //INSERIRE CODICE QUI SOTTO
 
+var updatePizzasByPrice = function updatePizzasByPrice(price, increment, lower){
+    var modifed = [];
+    for(var i =0; i < menu.length; i++){
+        if(lower){
+            if(menu[i][3]< price){
+                menu[i][3] = menu[i][3] + increment;
+                modifed.push(menu[i]);
+            }
+        }
+        else{
+            if(menu[i][3]> price){
+                menu[i][3] = menu[i][3] + increment;
+                modifed.push(menu[i]);
+            }
+        }
+    }
+    return modifed;
+}
+
+
 //export functions
 exports.searchPizzaID = searchPizzaID; 
 exports.searchPizzaName = searchPizzaName; 
@@ -146,3 +166,4 @@ exports.deletePizzaID = deletePizzaID;
 exports.deletePizzaName = deletePizzaName; 
 exports.insertPizza = insertPizza; 
 exports.getMenu = getMenu; 
+exports.updatePizzasByPrice = updatePizzasByPrice;

@@ -264,6 +264,86 @@ app.post('/addPizza', function(request, response)
 
 //INSERIRE CODICE QUI SOTTO
 
+app.post('/updatePizzasByPrice', function(request, response) 
+{
+	var headers = {};
+	headers["Access-Control-Allow-Origin"] = "*";
+	headers["Access-Control-Allow-Methods"] = "POST, GET, PUT, DELETE, OPTIONS";
+	headers["Access-Control-Allow-Credentials"] = false;
+	headers["Access-Control-Max-Age"] = '86400'; // 24 hours
+	headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept";
+	headers["Content-Type"] = "application/json";
+
+	var pricefun;
+    var incrementfun;
+    var lowerfun;
+    var pizzas;
+	
+	//check body and parameters
+	if ( typeof request.body !== 'undefined' && request.body)
+	{
+		if ( typeof request.body.price !== 'undefined' && request.body.price)
+            {
+			 pricefun = request.body.price;
+            }
+		else {
+			pricefun = "not defined";
+            pizzas = "not defined";
+        }
+        
+        if ( typeof request.body.increment !== 'undefined' && request.body.increment)
+        {
+         incrementfun = request.body.increment;
+        }
+		else {
+			incrementfun = "not defined";
+            pizzas = "not defined";
+        }
+        
+        if ( typeof request.body.lower !== 'undefined' && request.body.lower)
+            {
+			 lowerfun = request.body.lower;
+            }
+		else {
+			lowerfun = "not defined";
+            pizzas = "not defined";
+        }
+         
+	}
+	else
+	{
+		pizzas = "body undefined";
+	}
+    
+    if (pizzas!="not defined" && pizzaID!="body undefined")
+	{
+		//aceptable input
+		//update pizzas
+		pizzas = pizzaManager.updatePizzasByPrice(price, increment, lower);
+		//if there's no error
+		if (pizza != null)
+		{
+			response.writeHead(200, headers);
+			response.end(JSON.stringify(pizza));
+		}
+		else
+		{
+			response.writeHead(404, headers);
+			response.end(JSON.stringify());
+		}
+
+	}
+    else    
+	{
+		//unaceptable input
+		response.writeHead(406, headers);
+		response.end(JSON.stringify("1"));
+	}   
+
+});
+
+
+
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
