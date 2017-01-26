@@ -52,12 +52,12 @@ paths:
         - name: ID
           in: formData
           description: ID of the pizza
-          required: false
+          required: true
           type: string
         - name: name
           in: formData
           description: name of the pizza
-          required: false
+          required: true
           type: string
       responses:
         200:
@@ -100,6 +100,46 @@ paths:
             type: array
             items:
               $ref: "#/definitions/pizza"
+  /addPizza:
+    post:
+      summary: return pizza added
+      description: it returns a pizza is added on the menu
+      parameters:
+        - name: ID
+          in: formData
+          description: ID of the pizza
+          required: true
+          type: string
+        - name: name
+          in: formData
+          description: name of the pizza
+          required: false
+          type: string
+        - name: price
+          in: formData
+          description: price of the pizza
+          required: false
+          type: integer
+        - name: ingredients
+          in: formData
+          description: array
+          required: false
+          type: array
+      responses:
+        200:
+          description:show pizza added
+          schema:
+            typer: array
+            items
+              $ref: "#/definitions/pizza"
+        406:
+          description: error for wrong ID
+          schema: 
+            properties:
+              error:
+                type: integer
+        400:
+          description: wrong input
           
 definitions:
   pizza:

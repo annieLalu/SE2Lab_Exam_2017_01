@@ -284,7 +284,7 @@ app.post('/updatePizzasByPrice', function(request, response)
 	{
 		if ( typeof request.body.price !== 'undefined' && request.body.price)
             {
-			 pricefun = request.body.price;
+			 pricefun = parseFloat(request.body.price);
             }
 		else {
 			pricefun = "not defined";
@@ -326,19 +326,8 @@ app.post('/updatePizzasByPrice', function(request, response)
 			response.writeHead(200, headers);
 			response.end(JSON.stringify(pizza));
 		}
-		else
-		{
-			response.writeHead(404, headers);
-			response.end(JSON.stringify());
-		}
 
-	}
-    else    
-	{
-		//unaceptable input
-		response.writeHead(406, headers);
-		response.end(JSON.stringify("1"));
-	}   
+	}  
 
 });
 
